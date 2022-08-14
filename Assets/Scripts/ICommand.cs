@@ -1,9 +1,6 @@
-﻿namespace DefaultNamespace
+﻿public interface ICommand
 {
-    public interface ICommand
-    {
-        void Execute();
+    void Execute();
 
-        void Undo();
-    }
+    void Undo();
 }

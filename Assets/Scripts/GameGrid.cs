@@ -2,49 +2,44 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum GameSlot
-{
-    X,
-    O,
-    Empty
-}
+
 
 public class GameGrid
 {
-    private GameSlot[,] m_GameSlots;
+    private Mark[,] _mGameSlots;
     private const int GridSize = 3;
 
     public GameGrid()
     {
-        m_GameSlots = new GameSlot[GridSize, GridSize];
+        _mGameSlots = new Mark[GridSize, GridSize];
     }
 
     public void InitializeSlot()
     {
-        for (int i = 0; i < m_GameSlots.GetLength(0); i++)
+        for (int i = 0; i < _mGameSlots.GetLength(0); i++)
         {
-            for (int j = 0; j < m_GameSlots.GetLength(1); j++)
+            for (int j = 0; j < _mGameSlots.GetLength(1); j++)
             {
-                m_GameSlots[i, j] = GameSlot.Empty;
+                _mGameSlots[i, j] = Mark.Empty;
             }
         }
     }
 
-    public GameSlot GetSlotValue(int row, int col)
+    public Mark GetSlotValue(int row, int col)
     {
-        return m_GameSlots[row, col];
+        return _mGameSlots[row, col];
     }
 
-    public bool SetSlotValue(int row, int col, GameSlot newValue)
+    public bool SetSlotValue(int row, int col, Mark newValue)
     {
-        GameSlot targetSlotCurrentValue = GetSlotValue(row, col);
+        Mark targetSlotCurrentValue = GetSlotValue(row, col);
 
-        if (newValue == GameSlot.Empty)
+        if (newValue == Mark.Empty)
         {
             LogManager.LogError("Cannot set slot value to empty.");
             return false;
         }
-        else if (targetSlotCurrentValue != GameSlot.Empty)
+        else if (targetSlotCurrentValue != Mark.Empty)
         {
             LogManager.LogError("Cannot set value to a slot that isn't empty.");
             LogManager.LogError("Slot current value: " + targetSlotCurrentValue);
@@ -52,7 +47,7 @@ public class GameGrid
             return false;
         }
 
-        m_GameSlots[row, col] = newValue;
+        _mGameSlots[row, col] = newValue;
         return true;
     }
 }
