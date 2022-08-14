@@ -2,7 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+class GridSlot
+{
+    public int Col;
+    public int Row;
 
+    public MyStruct(int col, int row)
+    {
+        this.Col = col;
+        this.Row = row;
+    }
+}
 
 public class GameGrid
 {
