@@ -1,11 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
 public struct GridPosition
 {
-    public int Col;
-    public int Row;
+    public readonly int Col;
+    public readonly int Row;
 
     public GridPosition(int col, int row)
     {
@@ -16,28 +13,28 @@ public struct GridPosition
 
 public class GameGrid
 {
-    private Mark[,] _GameSlots;
+    private readonly Mark[,] m_GameSlots;
     private const int GridSize = 3;
 
     public GameGrid()
     {
-        _GameSlots = new Mark[GridSize, GridSize];
+        m_GameSlots = new Mark[GridSize, GridSize];
     }
 
     public void InitializeSlot()
     {
-        for (int i = 0; i < _GameSlots.GetLength(0); i++)
+        for (int i = 0; i < m_GameSlots.GetLength(0); i++)
         {
-            for (int j = 0; j < _GameSlots.GetLength(1); j++)
+            for (int j = 0; j < m_GameSlots.GetLength(1); j++)
             {
-                _GameSlots[i, j] = Mark.Empty;
+                m_GameSlots[i, j] = Mark.Empty;
             }
         }
     }
 
     public Mark GetSlotValue(GridPosition gridPosition)
     {
-        return _GameSlots[gridPosition.Row, gridPosition.Col];
+        return m_GameSlots[gridPosition.Row, gridPosition.Col];
     }
 
     public bool SetSlotValue(GridPosition gridPosition, Mark newValue)
@@ -53,11 +50,11 @@ public class GameGrid
         {
             LogManager.LogError("Cannot set value to a slot that isn't empty.");
             LogManager.LogError("Slot current value: " + targetSlotCurrentValue);
-            LogManager.LogError("Slot location: " + row + " , " + col);
+            LogManager.LogError("Slot location: " + gridPosition.Row + " , " + gridPosition.Col);
             return false;
         }
 
-        _GameSlots[gridPosition.Row, gridPosition.Col] = newValue;
+        m_GameSlots[gridPosition.Row, gridPosition.Col] = newValue;
         return true;
     }
 }

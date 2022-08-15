@@ -1,11 +1,17 @@
-﻿namespace DefaultNamespace
+﻿using System;
+using UnityEngine;
+
+namespace DefaultNamespace
 {
-    public class GameManager
+    public class GameManager : MonoBehaviour
     {
         private GameGrid _gameGrid;
 
 
-
+        private void Start()
+        {
+            _gameGrid = new GameGrid();
+        }
 
         public void SetMark(GridPosition gridPosition, Mark mark)
         {
