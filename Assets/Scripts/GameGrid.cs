@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-class GridSlot
+public struct GridPosition
 {
     public int Col;
     public int Row;
 
-    public MyStruct(int col, int row)
+    public GridPosition(int col, int row)
     {
         this.Col = col;
         this.Row = row;
@@ -16,33 +16,33 @@ class GridSlot
 
 public class GameGrid
 {
-    private Mark[,] _mGameSlots;
+    private Mark[,] _GameSlots;
     private const int GridSize = 3;
 
     public GameGrid()
     {
-        _mGameSlots = new Mark[GridSize, GridSize];
+        _GameSlots = new Mark[GridSize, GridSize];
     }
 
     public void InitializeSlot()
     {
-        for (int i = 0; i < _mGameSlots.GetLength(0); i++)
+        for (int i = 0; i < _GameSlots.GetLength(0); i++)
         {
-            for (int j = 0; j < _mGameSlots.GetLength(1); j++)
+            for (int j = 0; j < _GameSlots.GetLength(1); j++)
             {
-                _mGameSlots[i, j] = Mark.Empty;
+                _GameSlots[i, j] = Mark.Empty;
             }
         }
     }
 
-    public Mark GetSlotValue(int row, int col)
+    public Mark GetSlotValue(GridPosition gridPosition)
     {
-        return _mGameSlots[row, col];
+        return _GameSlots[gridPosition.Row, gridPosition.Col];
     }
 
-    public bool SetSlotValue(int row, int col, Mark newValue)
+    public bool SetSlotValue(GridPosition gridPosition, Mark newValue)
     {
-        Mark targetSlotCurrentValue = GetSlotValue(row, col);
+        Mark targetSlotCurrentValue = GetSlotValue(gridPosition);
 
         if (newValue == Mark.Empty)
         {
@@ -57,7 +57,7 @@ public class GameGrid
             return false;
         }
 
-        _mGameSlots[row, col] = newValue;
+        _GameSlots[gridPosition.Row, gridPosition.Col] = newValue;
         return true;
     }
 }
