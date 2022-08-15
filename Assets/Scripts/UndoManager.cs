@@ -4,11 +4,31 @@ namespace DefaultNamespace
 {
     public class UndoManager
     {
-        private Stack<ICommand> Commands;
+        private Stack<ICommand> CommandHistory;
+        private Stack<ICommand> UndoHistory;
 
-        public UndoManager(Stack<ICommand> commands)
+        public UndoManager(Stack<ICommand> undoHistory)
         {
-            Commands = commands;
+            CommandHistory = new Stack<ICommand>();
+            UndoHistory = new Stack<ICommand>();
         }
+
+        public void StackCommand(ICommand command)
+        {
+            CommandHistory.Push(command);
+        }
+
+        public void UndoLastCommand()
+        {
+            ICommand lastCommand = CommandHistory.Pop();
+            lastCommand.Undo();
+            UndoHistory.Push(lastCommand);
+        }
+
+        public void Redo()
+        {
+            
+        }
+        
     }
 }
