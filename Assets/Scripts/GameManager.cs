@@ -9,7 +9,7 @@
 
         public void SetMark(GridPosition gridPosition, Mark mark)
         {
-            _gameGrid.SetSlotValue()
+            _gameGrid.SetSlotValue(gridPosition, mark);
         }
 
 

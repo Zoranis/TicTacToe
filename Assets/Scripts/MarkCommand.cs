@@ -16,12 +16,12 @@
 
         public void Execute()
         {
-            throw new System.NotImplementedException();
+            GameManager.SetMark(GridPosition, PlayerMark);
         }
 
         public void Undo()
         {
-            throw new System.NotImplementedException();
+            GameManager.SetMark(GridPosition, Mark.Empty);
         }
     }
 }
