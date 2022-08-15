@@ -16,6 +16,8 @@ namespace DefaultNamespace
         public void StackCommand(ICommand command)
         {
             CommandHistory.Push(command);
+            //New commands make undo history irrelevant, so UndoHistory is cleaned.
+            UndoHistory.Clear();
         }
 
         public void UndoLastCommand()
@@ -27,7 +29,9 @@ namespace DefaultNamespace
 
         public void Redo()
         {
-            
+            ICommand lastUndoCommand = UndoHistory.Pop();
+            lastUndoCommand.Execute();
+            CommandHistory.Push(lastUndoCommand);
         }
         
     }
