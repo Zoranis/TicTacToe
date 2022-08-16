@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Runtime.CompilerServices;
+using UnityEngine;
 using Random = UnityEngine.Random;
 
 namespace DefaultNamespace
@@ -8,6 +10,13 @@ namespace DefaultNamespace
         private GameGrid _gameGrid;
         private Player[] _players;
         private int _currentPlayerIndex;
+
+        public static GameManager Instance;
+
+        private void Awake()
+        {
+            Instance = this;
+        }
 
         private void Start()
         {
@@ -45,6 +54,12 @@ namespace DefaultNamespace
             _currentPlayerIndex = GetRandomPlayerIndex();
             _players[_currentPlayerIndex].PlayerMark = Mark.X;
             _players[GetNextPlayerIndex()].PlayerMark = Mark.O;
+        }
+
+        public void PlayerMarkSlot(GridPosition gridPosition)
+        {
+            Mark currentPlayerMark = _players[_currentPlayerIndex].PlayerMark;
+            MarkCommand markCommand = new MarkCommand(currentPlayerMark, gridPosition);
         }
     }
 }
