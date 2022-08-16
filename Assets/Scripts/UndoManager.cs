@@ -7,7 +7,7 @@ namespace DefaultNamespace
         private Stack<ICommand> CommandHistory;
         private Stack<ICommand> UndoHistory;
 
-        public UndoManager(Stack<ICommand> undoHistory)
+        public UndoManager()
         {
             CommandHistory = new Stack<ICommand>();
             UndoHistory = new Stack<ICommand>();

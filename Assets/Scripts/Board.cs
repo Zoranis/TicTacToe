@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class Board : MonoBehaviour
 {
     [SerializeField] private Button gridSlotButton;
-    [SerializeField] private List<GridSlotButton> SlotButtons;
+    [SerializeField] public List<GridSlotButton> SlotButtons;
     private const int GridSize = 3;
 
 

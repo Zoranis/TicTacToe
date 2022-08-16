@@ -1,4 +1,5 @@
 using System;
+using DefaultNamespace;
 using UnityEngine;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
@@ -12,12 +13,12 @@ public class GridSlotButton : MonoBehaviour
 
     private void Awake()
     {
-        _button.onClick.AddListener(PlayerClick);
+        _button.onClick.AddListener(OnBtnClick);
     }
 
-    private void PlayerClick()
+    private void OnBtnClick()
     {
-        
+        GameManager.Instance.SlotClicked(ButtonGridPosition);
     }
 
     public void Initialize(GridPosition gridPosition)

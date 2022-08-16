@@ -1,15 +1,15 @@
-﻿using System;
-using System.Runtime.CompilerServices;
-using UnityEngine;
+﻿using UnityEngine;
 using Random = UnityEngine.Random;
 
 namespace DefaultNamespace
 {
     public class GameManager : MonoBehaviour
     {
-        private GameGrid _gameGrid;
-        private Player[] _players;
-        private int _currentPlayerIndex;
+        private GameGrid m_GameGrid;
+        private Player[] m_Players;
+        private int m_CurrentPlayerIndex;
+        private UndoManager m_UndoManager;
+        [SerializeField] private Board m_Board;
 
         public static GameManager Instance;
 
@@ -20,8 +20,9 @@ namespace DefaultNamespace
 
         private void Start()
         {
-            _gameGrid = new GameGrid();
-            _players = new Player[2];
+            m_GameGrid = new GameGrid();
+            m_Players = new Player[2];
+            m_UndoManager = new UndoManager();
             InitializeGame();
         }
 
@@ -35,7 +36,7 @@ namespace DefaultNamespace
 
         public void SetMark(GridPosition gridPosition, Mark mark)
         {
-            _gameGrid.SetSlotValue(gridPosition, mark);
+            m_GameGrid.SetSlotValue(gridPosition, mark);
         }
 
         private int GetRandomPlayerIndex()
@@ -45,21 +46,35 @@ namespace DefaultNamespace
 
         private int GetNextPlayerIndex()
         {
-            return (_currentPlayerIndex == 0) ? 1 : 0;
+            return (m_CurrentPlayerIndex == 0) ? 1 : 0;
         }
 
         private void InitializeGame()
         {
-            _gameGrid.InitializeGrid();
-            _currentPlayerIndex = GetRandomPlayerIndex();
-            _players[_currentPlayerIndex].PlayerMark = Mark.X;
-            _players[GetNextPlayerIndex()].PlayerMark = Mark.O;
+            m_Players[0] = new Player();
+            m_Players[1] = new Player();
+            
+            m_GameGrid.InitializeGrid();
+            m_CurrentPlayerIndex = GetRandomPlayerIndex();
+            m_Players[m_CurrentPlayerIndex].PlayerMark = Mark.X;
+            m_Players[GetNextPlayerIndex()].PlayerMark = Mark.O;
         }
 
-        public void PlayerMarkSlot(GridPosition gridPosition)
+        private void RefreshBoard()
         {
-            Mark currentPlayerMark = _players[_currentPlayerIndex].PlayerMark;
+            foreach (var slotButton in m_Board.SlotButtons)
+            {
+                Mark slotMark = m_GameGrid.GetSlotValue(slotButton.ButtonGridPosition);
+                slotButton.SetText(slotMark.ToString());
+            }
+        }
+        
+        public void SlotClicked(GridPosition gridPosition)
+        {
+            Mark currentPlayerMark = m_Players[m_CurrentPlayerIndex].PlayerMark;
             MarkCommand markCommand = new MarkCommand(currentPlayerMark, gridPosition);
+            m_UndoManager.StackCommand(markCommand);
+            RefreshBoard();
         }
     }
 }
