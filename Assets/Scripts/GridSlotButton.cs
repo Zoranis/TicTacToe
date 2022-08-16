@@ -1,17 +1,28 @@
-using System.Collections;
-using System.Collections.Generic;
-using Packages.Rider.Editor.UnitTesting;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class GridSlotButton : MonoBehaviour
 {
-    public GridPosition _gridPosition;
+    public GridPosition ButtonGridPosition;
     [SerializeField] private Text btnText;
+    [SerializeField] private Button _button;
+
+
+    private void Awake()
+    {
+        _button.onClick.AddListener(PlayerClick);
+    }
+
+    private void PlayerClick()
+    {
+        
+    }
 
     public void Initialize(GridPosition gridPosition)
     {
-        _gridPosition = gridPosition;
+        ButtonGridPosition = gridPosition;
     }
     
     public void SetText(string newText)

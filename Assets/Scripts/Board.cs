@@ -27,11 +27,11 @@ public class Board : MonoBehaviour
 
         int currentSlotIndex = 0;
 
-        for (int i = 0; i <= GridSize; i++)
+        for (int i = 0; i < GridSize; i++)
         {
             for (int j = 0; j < GridSize; j++)
             {
-                SlotButtons[currentSlotIndex]._gridPosition = new GridPosition(i, j);
+                SlotButtons[currentSlotIndex].ButtonGridPosition = new GridPosition(i, j);
                 SlotButtons[currentSlotIndex].SetText(i.ToString() + " " + j.ToString());
                 currentSlotIndex++;
                 

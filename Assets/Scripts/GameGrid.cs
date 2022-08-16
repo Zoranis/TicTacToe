@@ -21,7 +21,7 @@ public class GameGrid
         m_GameSlots = new Mark[GridSize, GridSize];
     }
 
-    public void InitializeSlot()
+    public void InitializeGrid()
     {
         for (int i = 0; i < m_GameSlots.GetLength(0); i++)
         {
