@@ -1,4 +1,3 @@
-
 public struct GridPosition
 {
     public readonly int Col;
@@ -14,7 +13,7 @@ public struct GridPosition
 public class GameGrid
 {
     private readonly Mark[,] m_GameSlots;
-    private const int GridSize = 3;
+    public readonly int GridSize = 3;
 
     public GameGrid()
     {
@@ -36,19 +35,15 @@ public class GameGrid
     {
         return m_GameSlots[gridPosition.Row, gridPosition.Col];
     }
+    
+    public Mark GetSlotValue(int row, int col)
+    {
+        return m_GameSlots[row, col];
+    }
 
     public bool SetSlotValue(GridPosition gridPosition, Mark newValue)
     {
         Mark targetSlotCurrentValue = GetSlotValue(gridPosition);
-
-       // if (targetSlotCurrentValue != Mark.Empty)
-       //  {
-       //      LogManager.LogError("Cannot set value to a slot that isn't empty.");
-       //      LogManager.LogError("Slot current value: " + targetSlotCurrentValue);
-       //      LogManager.LogError("Slot location: " + gridPosition.Row + " , " + gridPosition.Col);
-       //      return false;
-       //  }
-
         m_GameSlots[gridPosition.Row, gridPosition.Col] = newValue;
         return true;
     }

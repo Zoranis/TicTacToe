@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace DefaultNamespace
+namespace TicTacToe
 {
     public class GameManager : MonoBehaviour
     {
@@ -10,6 +10,7 @@ namespace DefaultNamespace
         private int m_CurrentPlayerIndex;
         private UndoManager m_UndoManager;
         [SerializeField] private Board m_Board;
+        private WinCondition _winCondition;
 
         public static GameManager Instance;
 
@@ -23,6 +24,7 @@ namespace DefaultNamespace
             m_GameGrid = new GameGrid();
             m_Players = new Player[2];
             m_UndoManager = new UndoManager();
+            _winCondition = new WinCondition();
             InitializeGame();
         }
 
@@ -79,6 +81,10 @@ namespace DefaultNamespace
             Mark currentPlayerMark = m_Players[m_CurrentPlayerIndex].PlayerMark;
             MarkCommand markCommand = new MarkCommand(currentPlayerMark, gridPosition);
             markCommand.Execute();
+            
+            if (_winCondition.IsMarkFinal(m_GameGrid, markCommand))
+                Debug.Log("WIN");
+            
             m_UndoManager.StackCommand(markCommand);
             RefreshBoard();
             SwitchTurns();

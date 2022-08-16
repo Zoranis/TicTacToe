@@ -1,4 +1,4 @@
-﻿namespace DefaultNamespace
+﻿namespace TicTacToe
 {
     public class MarkCommand : ICommand
     {
