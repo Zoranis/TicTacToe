@@ -1,25 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
-using UnityEngine.UI;
 
-public class Board : MonoBehaviour
+public class GridSlotButton : MonoBehaviour
 {
-    [SerializeField] private Button gridSlotButton;
+    private GridPosition _gridPosition;
 
     // Start is called before the first frame update
     void Start()
     {
-        RenderBoard();
+        
     }
 
     // Update is called once per frame
     void Update()
     {
+        
     }
 
-    private void RenderBoard()
+    public void Initialize(GridPosition gridPosition)
     {
+        _gridPosition = gridPosition;
     }
+    
 }
