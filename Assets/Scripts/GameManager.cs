@@ -83,5 +83,11 @@ namespace DefaultNamespace
             RefreshBoard();
             SwitchTurns();
         }
+
+        public void Undo()
+        {
+            m_UndoManager.UndoLastCommand();
+            RefreshBoard();
+        }
     }
 }

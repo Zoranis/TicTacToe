@@ -41,18 +41,13 @@ public class GameGrid
     {
         Mark targetSlotCurrentValue = GetSlotValue(gridPosition);
 
-        if (newValue == Mark.Empty)
-        {
-            LogManager.LogError("Cannot set slot value to empty.");
-            return false;
-        }
-        else if (targetSlotCurrentValue != Mark.Empty)
-        {
-            LogManager.LogError("Cannot set value to a slot that isn't empty.");
-            LogManager.LogError("Slot current value: " + targetSlotCurrentValue);
-            LogManager.LogError("Slot location: " + gridPosition.Row + " , " + gridPosition.Col);
-            return false;
-        }
+       // if (targetSlotCurrentValue != Mark.Empty)
+       //  {
+       //      LogManager.LogError("Cannot set value to a slot that isn't empty.");
+       //      LogManager.LogError("Slot current value: " + targetSlotCurrentValue);
+       //      LogManager.LogError("Slot location: " + gridPosition.Row + " , " + gridPosition.Col);
+       //      return false;
+       //  }
 
         m_GameSlots[gridPosition.Row, gridPosition.Col] = newValue;
         return true;
