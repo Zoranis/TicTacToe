@@ -53,11 +53,16 @@ namespace DefaultNamespace
         {
             m_Players[0] = new Player();
             m_Players[1] = new Player();
-            
+
             m_GameGrid.InitializeGrid();
             m_CurrentPlayerIndex = GetRandomPlayerIndex();
             m_Players[m_CurrentPlayerIndex].PlayerMark = Mark.X;
             m_Players[GetNextPlayerIndex()].PlayerMark = Mark.O;
+        }
+
+        private void SwitchTurns()
+        {
+            m_CurrentPlayerIndex = GetNextPlayerIndex();
         }
 
         private void RefreshBoard()
@@ -68,13 +73,15 @@ namespace DefaultNamespace
                 slotButton.SetText(slotMark.ToString());
             }
         }
-        
+
         public void SlotClicked(GridPosition gridPosition)
         {
             Mark currentPlayerMark = m_Players[m_CurrentPlayerIndex].PlayerMark;
             MarkCommand markCommand = new MarkCommand(currentPlayerMark, gridPosition);
+            markCommand.Execute();
             m_UndoManager.StackCommand(markCommand);
             RefreshBoard();
+            SwitchTurns();
         }
     }
 }
