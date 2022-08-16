@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public struct GridPosition
 {
     public readonly int Col;
@@ -38,6 +40,7 @@ public class GameGrid
     
     public Mark GetSlotValue(int row, int col)
     {
+        Debug.Log(row + " || " + col);
         return m_GameSlots[row, col];
     }
 

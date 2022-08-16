@@ -33,6 +33,7 @@ namespace TicTacToe
             if (Input.GetKey(KeyCode.R))
             {
                 InitializeGame();
+                RefreshBoard();
             }
         }
 
