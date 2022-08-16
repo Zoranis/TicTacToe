@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class GridSlotButton : MonoBehaviour
 {
     public GridPosition _gridPosition;
-    private Text btnText;
+    [SerializeField] private Text btnText;
 
     public void Initialize(GridPosition gridPosition)
     {
