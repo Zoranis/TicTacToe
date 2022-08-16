@@ -1,26 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
+using Packages.Rider.Editor.UnitTesting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GridSlotButton : MonoBehaviour
 {
     private GridPosition _gridPosition;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    private Text btnText;
 
     public void Initialize(GridPosition gridPosition)
     {
         _gridPosition = gridPosition;
+    }
+    
+    public void SetText(string newText)
+    {
+        btnText.text = newText;
     }
     
 }
