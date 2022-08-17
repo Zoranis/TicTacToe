@@ -40,7 +40,6 @@ public class GameGrid
     
     public Mark GetSlotValue(int row, int col)
     {
-        Debug.Log(row + " || " + col);
         return m_GameSlots[row, col];
     }
 

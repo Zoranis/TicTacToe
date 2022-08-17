@@ -16,18 +16,12 @@ namespace TicTacToe
             int row = markCommand.GridPosition.Row;
             int col = markCommand.GridPosition.Col;
 
-            Debug.Log("Testing mark for final: " + row + " " + col + " " + mark.ToString());
-            
-            Debug.Log("Test Col");
             if (IsMarkFullCol(col, mark))
                 return true;
-            Debug.Log("Test Row");
             if (IsMarkFullRow(row, mark))
                 return true;
-            Debug.Log("Test Diag");
             if (IsMarkFullMainDiagonal(row, col, mark))
                 return true;
-            Debug.Log("Test AntiDiag");
             if (IsMarkFullAntiDiagonal(row, col, mark))
                 return true;
 

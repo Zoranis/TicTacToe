@@ -12,9 +12,9 @@
             GridPosition = gridPosition;
         }
 
-        public void Execute()
+        public bool Execute()
         {
-            GameManager.Instance.SetMark(GridPosition, PlayerMark);
+            return GameManager.Instance.SetMark(GridPosition, PlayerMark);
         }
 
         public void Undo()

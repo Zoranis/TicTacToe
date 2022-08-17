@@ -37,9 +37,9 @@ namespace TicTacToe
             }
         }
 
-        public void SetMark(GridPosition gridPosition, Mark mark)
+        public bool SetMark(GridPosition gridPosition, Mark mark)
         {
-            m_GameGrid.SetSlotValue(gridPosition, mark);
+            return m_GameGrid.SetSlotValue(gridPosition, mark);
         }
 
         private int GetRandomPlayerIndex()
@@ -81,7 +81,11 @@ namespace TicTacToe
         {
             Mark currentPlayerMark = m_Players[m_CurrentPlayerIndex].PlayerMark;
             MarkCommand markCommand = new MarkCommand(currentPlayerMark, gridPosition);
-            markCommand.Execute();
+            if (!markCommand.Execute())
+            {
+                Debug.Log("Illegal Move.");
+            }
+                
             
             if (_winCondition.IsMarkFinal(m_GameGrid, markCommand))
                 Debug.Log("WIN");
