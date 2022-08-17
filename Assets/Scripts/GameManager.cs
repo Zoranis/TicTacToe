@@ -33,15 +33,11 @@ namespace TicTacToe
             InitializeGame();
         }
 
-        private void Update()
+        public void Reset()
         {
-            if (Input.GetKey(KeyCode.R))
-            {
-                InitializeGame();
-                RefreshBoard();
-            }
+            InitializeGame();
         }
-
+        
         public bool SetMark(GridPosition gridPosition, Mark mark, bool isForceAction = false)
         {
             return m_GameGrid.SetSlotValue(gridPosition, mark, isForceAction);
@@ -59,6 +55,8 @@ namespace TicTacToe
 
         private void InitializeGame()
         {
+            _gameOver = false;
+
             m_Players[0] = new Player("Player A");
             m_Players[1] = new Player("Player B");
 
@@ -90,6 +88,12 @@ namespace TicTacToe
 
         public void SlotClicked(GridPosition gridPosition)
         {
+            if (_gameOver)
+            {
+                statusDisplay.SetMessageText("Game Over, please reset.");
+                return;
+            }
+
             Mark currentPlayerMark = CurrentPlayer.PlayerMark;
             MarkCommand markCommand = new MarkCommand(currentPlayerMark, gridPosition);
             if (!markCommand.Execute())
@@ -100,7 +104,7 @@ namespace TicTacToe
 
             if (_winCondition.IsMarkFinal(m_GameGrid, markCommand))
             {
-                statusDisplay.SetMessageText(CurrentPlayer.PlayerName + "Wins!");
+                statusDisplay.SetMessageText(CurrentPlayer.PlayerName + " Wins!");
                 _gameOver = true;
             }
             else
