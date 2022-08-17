@@ -16,11 +16,11 @@ public class StatusDisplay : MonoBehaviour
 
     public void SetMarkText(string mark)
     {
-        TurnText.text = "Mark: " + mark;
+        MarkText.text = "Mark: " + mark;
     }
 
     public void SetMessageText(string message)
     {
-        TurnText.text = message;
+        MessageText.text = message;
     }
 }

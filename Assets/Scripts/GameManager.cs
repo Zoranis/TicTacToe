@@ -13,6 +13,9 @@ namespace TicTacToe
         [SerializeField] private Board m_Board;
         [SerializeField] private StatusDisplay statusDisplay;
         private WinCondition _winCondition;
+        private bool _gameOver = false;
+
+        private Player CurrentPlayer => m_Players[m_CurrentPlayerIndex];
 
         public static GameManager Instance;
 
@@ -63,12 +66,13 @@ namespace TicTacToe
             m_CurrentPlayerIndex = GetRandomPlayerIndex();
             m_Players[m_CurrentPlayerIndex].PlayerMark = Mark.X;
             m_Players[GetNextPlayerIndex()].PlayerMark = Mark.O;
+
+            RefreshBoard();
         }
 
         private void SwitchTurns()
         {
             m_CurrentPlayerIndex = GetNextPlayerIndex();
-            statusDisplay.SetTurnText(m_Players[m_CurrentPlayerIndex].PlayerName);
         }
 
         private void RefreshBoard()
@@ -79,11 +83,14 @@ namespace TicTacToe
                 string markText = (slotMark == Mark.Empty) ? "" : slotMark.ToString();
                 slotButton.SetText(markText);
             }
+
+            statusDisplay.SetTurnText(CurrentPlayer.PlayerName);
+            statusDisplay.SetMarkText(CurrentPlayer.PlayerMark.ToString());
         }
 
         public void SlotClicked(GridPosition gridPosition)
         {
-            Mark currentPlayerMark = m_Players[m_CurrentPlayerIndex].PlayerMark;
+            Mark currentPlayerMark = CurrentPlayer.PlayerMark;
             MarkCommand markCommand = new MarkCommand(currentPlayerMark, gridPosition);
             if (!markCommand.Execute())
             {
@@ -92,11 +99,17 @@ namespace TicTacToe
 
 
             if (_winCondition.IsMarkFinal(m_GameGrid, markCommand))
-                Debug.Log("WIN");
+            {
+                statusDisplay.SetMessageText(CurrentPlayer.PlayerName + "Wins!");
+                _gameOver = true;
+            }
+            else
+            {
+                m_UndoManager.StackCommand(markCommand);
+                SwitchTurns();
+            }
 
-            m_UndoManager.StackCommand(markCommand);
             RefreshBoard();
-            SwitchTurns();
         }
 
         public void Undo()

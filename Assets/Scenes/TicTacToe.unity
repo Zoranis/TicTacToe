@@ -1358,6 +1358,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Board: {fileID: 914820017}
+  statusDisplay: {fileID: 1122455670}
 --- !u!4 &1519587276
 Transform:
   m_ObjectHideFlags: 0
