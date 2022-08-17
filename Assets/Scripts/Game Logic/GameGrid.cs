@@ -51,10 +51,9 @@ public class GameGrid
         if (!isForceAction && targetSlotCurrentValue != Mark.Empty)
         {
             LogManager.LogError("Only forced action can change an already marked slot.");
-            return false;            
+            return false;
         }
 
-        
         m_GameSlots[gridPosition.Row, gridPosition.Col] = newValue;
         return true;
     }

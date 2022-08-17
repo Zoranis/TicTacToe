@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 namespace TicTacToe
@@ -10,6 +11,7 @@ namespace TicTacToe
         private int m_CurrentPlayerIndex;
         private UndoManager m_UndoManager;
         [SerializeField] private Board m_Board;
+        [SerializeField] private StatusDisplay statusDisplay;
         private WinCondition _winCondition;
 
         public static GameManager Instance;
@@ -54,8 +56,8 @@ namespace TicTacToe
 
         private void InitializeGame()
         {
-            m_Players[0] = new Player();
-            m_Players[1] = new Player();
+            m_Players[0] = new Player("Player A");
+            m_Players[1] = new Player("Player B");
 
             m_GameGrid.InitializeGrid();
             m_CurrentPlayerIndex = GetRandomPlayerIndex();
@@ -66,6 +68,7 @@ namespace TicTacToe
         private void SwitchTurns()
         {
             m_CurrentPlayerIndex = GetNextPlayerIndex();
+            statusDisplay.SetTurnText(m_Players[m_CurrentPlayerIndex].PlayerName);
         }
 
         private void RefreshBoard()
@@ -73,7 +76,8 @@ namespace TicTacToe
             foreach (var slotButton in m_Board.SlotButtons)
             {
                 Mark slotMark = m_GameGrid.GetSlotValue(slotButton.ButtonGridPosition);
-                slotButton.SetText(slotMark.ToString());
+                string markText = (slotMark == Mark.Empty) ? "" : slotMark.ToString();
+                slotButton.SetText(markText);
             }
         }
 
@@ -85,11 +89,11 @@ namespace TicTacToe
             {
                 Debug.Log("Illegal Move.");
             }
-                
-            
+
+
             if (_winCondition.IsMarkFinal(m_GameGrid, markCommand))
                 Debug.Log("WIN");
-            
+
             m_UndoManager.StackCommand(markCommand);
             RefreshBoard();
             SwitchTurns();
@@ -99,6 +103,7 @@ namespace TicTacToe
         {
             m_UndoManager.UndoLastCommand();
             RefreshBoard();
+            SwitchTurns();
         }
     }
 }

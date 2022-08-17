@@ -8,6 +8,12 @@
 public class Player
 {
     private Mark _playerMark;
+    public string PlayerName;
+
+    public Player(string playerName)
+    {
+        PlayerName = playerName;
+    }
 
     public Mark PlayerMark
     {
