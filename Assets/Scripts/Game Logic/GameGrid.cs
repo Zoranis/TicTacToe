@@ -37,15 +37,24 @@ public class GameGrid
     {
         return m_GameSlots[gridPosition.Row, gridPosition.Col];
     }
-    
+
     public Mark GetSlotValue(int row, int col)
     {
         return m_GameSlots[row, col];
     }
 
-    public bool SetSlotValue(GridPosition gridPosition, Mark newValue)
+    public bool SetSlotValue(GridPosition gridPosition, Mark newValue, bool isForceAction = false)
     {
         Mark targetSlotCurrentValue = GetSlotValue(gridPosition);
+
+        // If target slot already has a mark, only an forced action can change it.
+        if (!isForceAction && targetSlotCurrentValue != Mark.Empty)
+        {
+            LogManager.LogError("Only forced action can change an already marked slot.");
+            return false;            
+        }
+
+        
         m_GameSlots[gridPosition.Row, gridPosition.Col] = newValue;
         return true;
     }

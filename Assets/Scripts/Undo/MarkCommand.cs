@@ -19,7 +19,8 @@
 
         public void Undo()
         {
-            GameManager.Instance.SetMark(GridPosition, Mark.Empty);
+            bool ForceAction = true;
+            GameManager.Instance.SetMark(GridPosition, Mark.Empty, ForceAction);
         }
     }
 }

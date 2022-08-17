@@ -37,9 +37,9 @@ namespace TicTacToe
             }
         }
 
-        public bool SetMark(GridPosition gridPosition, Mark mark)
+        public bool SetMark(GridPosition gridPosition, Mark mark, bool isForceAction = false)
         {
-            return m_GameGrid.SetSlotValue(gridPosition, mark);
+            return m_GameGrid.SetSlotValue(gridPosition, mark, isForceAction);
         }
 
         private int GetRandomPlayerIndex()
